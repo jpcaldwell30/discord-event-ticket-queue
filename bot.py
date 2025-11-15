@@ -142,6 +142,7 @@ class DiscordBot(commands.Bot):
         async with aiosqlite.connect(
             f"{os.path.realpath(os.path.dirname(__file__))}/database/database.db"
         ) as db:
+            await db.execute("PRAGMA foreign_keys = ON")
             with open(
                 f"{os.path.realpath(os.path.dirname(__file__))}/database/schema.sql",
                 encoding = "utf-8"
@@ -199,6 +200,7 @@ class DiscordBot(commands.Bot):
                 f"{os.path.realpath(os.path.dirname(__file__))}/database/database.db"
             )
         )
+        await self.database.enable_foreign_keys()
 
     async def on_message(self, message: discord.Message) -> None:
         """
