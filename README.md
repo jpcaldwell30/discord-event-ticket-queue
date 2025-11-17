@@ -47,6 +47,13 @@ docker compose up -d --build
 
 The bot will automatically create the SQLite database (`data/database.db`) on first launch.
 
+## Deploying on Oracle Cloud Free Tier
+
+If you plan to host the bot on Oracle Cloud, follow the step-by-step guide in
+[`docs/oracle_cloud_setup.md`](docs/oracle_cloud_setup.md) to provision a free-tier compute
+instance, lock down networking, configure environment variables, and run the bot as a
+systemd service.
+
 ## Commands overview
 
 All commands must be executed inside a Discord guild.
