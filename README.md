@@ -1,141 +1,97 @@
-# Python Discord Bot Template
+# Discord Event Ticket Queue Bot
 
-<p align="center">
-  <a href="https://discord.gg/xj6y5ZaTMr"><img src="https://img.shields.io/discord/1358456011316396295?logo=discord"></a>
-  <a href="https://github.com/kkrypt0nn/Python-Discord-Bot-Template/releases"><img src="https://img.shields.io/github/v/release/kkrypt0nn/Python-Discord-Bot-Template"></a>
-  <a href="https://github.com/kkrypt0nn/Python-Discord-Bot-Template/commits/main"><img src="https://img.shields.io/github/last-commit/kkrypt0nn/Python-Discord-Bot-Template"></a>
-  <a href="https://github.com/kkrypt0nn/Python-Discord-Bot-Template/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/kkrypt0nn/Python-Discord-Bot-Template"></a>
-  <a href="https://github.com/kkrypt0nn/Python-Discord-Bot-Template"><img src="https://img.shields.io/github/languages/code-size/kkrypt0nn/Python-Discord-Bot-Template"></a>
-  <a href="https://conventionalcommits.org/en/v1.0.0/"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white"></a>
-  <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
-</p>
+A Discord bot that manages buyer queues and ticket listings for events. Guild members can create events manually or import them from the [EDMTrain](https://edmtrain.com/) API, queue for tickets, and notify the next buyer when someone lists a ticket for sale. The project builds on top of the Python Discord Bot Template and layers in database-backed ticket workflows that can run on Oracle Cloud or any environment that supports Python 3.12.
 
-> [!NOTE]
-> This project is in a **feature-freeze mode**, please read more about it [here](https://github.com/kkrypt0nn/Python-Discord-Bot-Template/issues/112). It can be summed up in a few bullet points:
-> 
-> * The project **will** receive bug fixes
-> * The project **will** be updated to make sure it works with the **latest** discord.py version
-> * The project **will not** receive any new features, **unless one of the following applies**:
->   * A new feature is added to Discord and it would be beneficial to have it in the template
->   * A feature got a breaking change, this fits with the same point that the project will **always** support the latest discord.py version
+## Features
 
-This repository is a template that everyone can use for the start of their Discord bot.
+- **Event management** – create ad-hoc events from Discord or import them from EDMTrain using an API key.
+- **Buyer queues** – let users join, leave, and view the queue for an event to signal interest in purchasing a ticket.
+- **Seller listings** – allow sellers to post a ticket with an asking price and automatically notify the next buyer in line.
+- **SQLite persistence** – events, queues, and listings are stored in an SQLite database with foreign-key enforcement.
+- **Hybrid commands** – commands can be used as slash commands or traditional text commands.
 
-When I first started creating my Discord bot it took me a while to get everything setup and working with cogs and more.
-I would've been happy if there were any template existing. However, there wasn't any existing template. That's why I
-decided to create my own template to let **you** guys create your Discord bot easily.
+## Prerequisites
 
-Please note that this template is not supposed to be the best template, but a good template to start learning how
-discord.py works and to make your own bot easily.
+- Python 3.12
+- A Discord bot application and token ([create one here](https://discord.com/developers/applications))
+- Optional: An EDMTrain API key for importing public event data
 
-If you plan to use this template to make your own template or bot, you **have to**:
+## Configuration
 
-- Keep the credits, and a link to this repository in all the files that contains my code
-- Keep the same license for unchanged code
+1. Copy `.env.example` to `.env` and populate the environment variables:
+   - `DISCORD_TOKEN` – your bot token
+   - `EDMTRAIN_API_KEY` – optional, required to import events from EDMTrain
+2. Alternatively, define the same variables directly in your hosting environment (e.g., Oracle Cloud).
 
-See [the license file](https://github.com/kkrypt0nn/Python-Discord-Bot-Template/blob/master/LICENSE.md) for more
-information, I reserve the right to take down any repository that does not meet these requirements.
+## Installation
 
-## Support
+Install the Python dependencies:
 
-Before requesting support, you should know that this template requires you to have at least a **basic knowledge** of
-Python and the library is made for **advanced users**. Do not use this template if you don't know the
-basics or some advanced topics such as OOP or async. [Here's](https://pythondiscord.com/pages/resources) a link for resources to learn python.
-
-If you need some help for something, do not hesitate to create an issue over [here](https://github.com/kkrypt0nn/Python-Discord-Bot-Template/issues), but don't forget the read the [frequently asked questions](https://github.com/kkrypt0nn/Python-Discord-Bot-Template/wiki/Frequently-Asked-Questions) before.
-
-All the updates of the template are available [here](UPDATES.md).
-
-## Disclaimer
-
-Slash commands can take some time to get registered globally, so if you want to test a command you should use
-the `@app_commands.guilds()` decorator so that it gets registered instantly. Example:
-
-```py
-@commands.hybrid_command(
-  name="command",
-  description="Command description",
-)
-@app_commands.guilds(discord.Object(id=GUILD_ID)) # Place your guild ID here
-```
-
-When using the template you confirm that you have read the [license](LICENSE.md) and comprehend that I can take down
-your repository if you do not meet these requirements.
-
-## How to download it
-
-This repository is now a template, on the top left you can simply click on "**Use this template**" to create a GitHub
-repository based on this template.
-
-Alternatively you can do the following:
-
-- Clone/Download the repository
-  - To clone it and get the updates you can definitely use the command
-    `git clone`
-- Create a Discord bot [here](https://discord.com/developers/applications)
-- Get your bot token
-- Invite your bot on servers using the following invite:
-  https://discord.com/oauth2/authorize?&client_id=YOUR_APPLICATION_ID_HERE&scope=bot+applications.commands&permissions=PERMISSIONS (
-  Replace `YOUR_APPLICATION_ID_HERE` with the application ID and replace `PERMISSIONS` with the required permissions
-  your bot needs that it can be get at the bottom of a this
-  page https://discord.com/developers/applications/YOUR_APPLICATION_ID_HERE/bot)
-
-## How to set up
-
-To set up the token you will have to make use of the [`.env.example`](.env.example) file; you should rename it to `.env` and replace the `YOUR_BOT...` content with your actual values that match for your bot.
-
-Alternatively you can simply create a system environment variable with the same names and their respective value.
-
-## How to start
-
-### The _"usual"_ way
-
-To start the bot you simply need to launch, either your terminal (Linux, Mac & Windows), or your Command Prompt (
-Windows)
-.
-
-Before running the bot you will need to install all the requirements with this command:
-
-```
+```bash
 python -m pip install -r requirements.txt
 ```
 
-After that you can start it with
+## Running the bot
 
-```
+Start the bot locally with:
+
+```bash
 python bot.py
 ```
 
-> **Note**: You may need to replace `python` with `py`, `python3`, `python3.11`, etc. depending on what Python versions you have installed on the machine.
+To run the bot in Docker:
 
-### Docker
-
-Support to start the bot in a Docker container has been added. After having [Docker](https://docker.com) installed on your machine, you can simply execute:
-
-```
+```bash
 docker compose up -d --build
 ```
 
-> **Note**: `-d` will make the container run in detached mode, so in the background.
+The bot will automatically create the SQLite database (`data/database.db`) on first launch.
 
-## Issues or Questions
+## Deploying on Oracle Cloud Free Tier
 
-If you have any issues or questions of how to code a specific command, you can:
+If you plan to host the bot on Oracle Cloud, follow the step-by-step guide in
+[`docs/oracle_cloud_setup.md`](docs/oracle_cloud_setup.md) to provision a free-tier compute
+instance, lock down networking, configure environment variables, and run the bot as a
+systemd service.
 
-- Join my Discord server [here](https://discord.gg/xj6y5ZaTMr)
-- Post them [here](https://github.com/kkrypt0nn/Python-Discord-Bot-Template/issues)
+## Commands overview
 
-Me or other people will take their time to answer and help you.
+All commands must be executed inside a Discord guild.
 
-## Versioning
+### Event commands
 
-We use [SemVer](http://semver.org) for versioning. For the versions available, see
-the [tags on this repository](https://github.com/kkrypt0nn/Python-Discord-Bot-Template/tags).
+- `/event` – list all known events for the guild.
+- `/event create <name> [date] [venue] [city] [url]` – create a manual event.
+- `/event import <edmtrain_id>` – import an event from EDMTrain by ID (requires API key).
 
-## Built With
+### Buyer queue commands
 
-- [Python 3.12.9](https://www.python.org/)
+- `/queue_join <event_id>` – join the buyer queue for an event.
+- `/queue_leave <event_id>` – leave the buyer queue.
+- `/queue_view <event_id>` – view the buyer queue with up to the first 15 entries.
 
-## License
+### Seller commands
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE.md](LICENSE.md) file for details
+- `/ticket_sell <event_id> <price>` – list a ticket for sale and notify the next buyer in the queue.
+
+When a seller lists a ticket, the bot records the listing and pings the first user waiting in the queue with the seller's asking price.
+
+## Database
+
+The bot uses SQLite to persist:
+
+- Events and their metadata (name, date, venue, city, URL, source)
+- Buyer queue entries (event, user, join order)
+- Ticket listings (event, seller, price, timestamp)
+
+Schema migrations are handled through the SQL statements located in `database/schema.sql`. The `DatabaseManager` class in `database/__init__.py` provides async helpers for interacting with the database and is initialized when the bot starts.
+
+## Development
+
+The project includes pytest coverage for the database manager. To run the test suite:
+
+```bash
+pytest
+```
+
+This repository inherits the Apache 2.0 license from the original template. See [LICENSE.md](LICENSE.md) for details.
